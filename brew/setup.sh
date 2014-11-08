@@ -12,7 +12,7 @@ EOF
 }
 
 upgrade_existing() {
-  echo $CMD upgrade $1
+  $CMD upgrade $1
 }
 
 echo_existing() {
@@ -52,14 +52,12 @@ init() {
 
 run() {
   init "$@"
-  echo params are $@
-  echo APPS is $APPS
-  echo CMD is $CMD
+
   for app in $APPS; do
     if $CMD list $app > /dev/null 2>&1; then
       $EXISTING $app
     else
-      echo $CMD install $app
+      $CMD install $app
     fi
   done
 }
