@@ -6,13 +6,13 @@ This script installs or upgrades brew (cask) applications.
 ./setup.sh readline sqlite
 ```
 
-**ex. ** only install `readline` and `sqlite` if not installed. No upgrades will be done.
+**ex.** only install `readline` and `sqlite` if not installed. No upgrades will be done.
 
 ```sh
 ./setup.sh -i readline sqlite
 ```
 
-**ex. ** install or upgrade `atom` and `vagrant` with cask options.
+**ex.** install or upgrade `atom` and `vagrant` with cask options.
 
 ```sh
 HOMEBREW_CASK_OPTS="--caskroom=/usr/local/opt/Caskroom" ./setup.sh -c atom vagrant
