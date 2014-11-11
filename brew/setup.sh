@@ -19,7 +19,16 @@ echo_existing() {
   echo $1 is already installed
 }
 
+init_cask() {
+  if ! brew list brew-cask > /dev/null 2>&1; then
+    brew tap caskroom/cask
+    brew install brew-cask
+  fi
+}
+
 init() {
+  which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
   export HOMEBREW_CASK_OPTS="$HOMEBREW_CASK_OPTS"
   CMD="brew"
   EXISTING="upgrade_existing"
@@ -48,6 +57,19 @@ init() {
   shift $((OPTIND-1))
 
   APPS="$@"
+
+  if [ "$CMD" = "brew cask" ]; then
+    init_cask
+  fi
+}
+
+finalize() {
+  if [ "$CMD" = "brew cask" ]; then
+    brew cask alfred link
+    brew cask cleanup
+  fi
+
+  brew cleanup
 }
 
 run() {
@@ -60,6 +82,8 @@ run() {
       $CMD install $app
     fi
   done
+
+  finalize
 }
 
 run "$@"
